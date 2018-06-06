@@ -1,4 +1,6 @@
 
+const parseFilter = require('./src/parse-filter')
+
 // TODO additional WHERE clauses in options
 // TODO SQL flavour in options
 const parse = (tableName, options, urlParams) => {
@@ -22,7 +24,11 @@ const parse = (tableName, options, urlParams) => {
         ? ` ORDER BY ${formatOrderBy(params['$orderby'])}`
         : ''
 
-    return `SELECT ${top}${select} FROM ${schema}[${tableName}]${orderBy}`
+    const where = params['$filter']
+        ? ` WHERE ${parseFilter(params['$filter'])}`
+        : ''
+
+    return `SELECT ${top}${select} FROM ${schema}[${tableName}]${orderBy}${where}`
 }
 
 const formatSelect = propertiesStr =>
