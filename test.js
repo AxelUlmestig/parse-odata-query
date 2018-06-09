@@ -367,7 +367,7 @@ describe('construct SQL queries', () => {
             const options = {}
             const tableName = 'Fishes'
             const params = '?$filter=A eq year(2016-01-01T13:00Z)'
-            const expected = `SELECT * FROM [${tableName}] WHERE [A] = YEAR('2016-01-01 13:00')`
+            const expected = `SELECT * FROM [${tableName}] WHERE [A] = YEAR('2016-01-01 13:00:00')`
 
             const output = parse(tableName, options, params)
 
